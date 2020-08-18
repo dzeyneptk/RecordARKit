@@ -13,10 +13,12 @@ import ARVideoKit
 
 class ViewController: UIViewController, ARSKViewDelegate {
     
+    // MARK: - IBOulet Var
     @IBOutlet var sceneView: ARSKView!
-    var recorder:RecordAR?
     
-    var recorderButton:UIButton = {
+    // MARK: - Private Variables
+    private var recorder:RecordAR?
+    private var recorderButton:UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Record", for: .normal)
         btn.setTitleColor(.black, for: .normal)
@@ -27,9 +29,7 @@ class ViewController: UIViewController, ARSKViewDelegate {
         btn.tag = 0
         return btn
     }()
-    
-    // Pause UIButton. This button will pause a video recording.
-    var pauseButton:UIButton = {
+    private var pauseButton:UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Pause", for: .normal)
         btn.setTitleColor(.black, for: .normal)
@@ -41,8 +41,7 @@ class ViewController: UIViewController, ARSKViewDelegate {
         btn.isEnabled = false
         return btn
     }()
-    
-    var gifButton:UIButton = {
+    private var gifButton:UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("+", for: .normal)
         btn.setTitleColor(.black, for: .normal)
@@ -52,101 +51,88 @@ class ViewController: UIViewController, ARSKViewDelegate {
         btn.layer.cornerRadius = btn.bounds.height/2
         return btn
     }()
-    var randoMoji: String {
+    private var randoMoji: String {
         let emojis = ["👾", "🤓", "🔥", "😜", "😇", "🤣", "🤗", "🧐", "🛰", "🚀"]
         return emojis[Int(arc4random_uniform(UInt32(emojis.count)))]
     }
     
+    // MARK: - Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
+        configureSceneView()
+        addTapGestures()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupConfiguration()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        sceneView.session.pause()
+        recorder?.rest()
+    }
+    
+    // MARK: - Private Functions
+    private func configureUI() {
         self.view.addSubview(recorderButton)
         self.view.addSubview(pauseButton)
         self.view.addSubview(gifButton)
-        
-        // Set the view's delegate
+    }
+    
+    private func setupConfiguration() {
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.environmentTexturing = .automatic
+        sceneView.session.run(configuration)
+        recorder?.prepare(configuration)
+    }
+    
+    private func configureSceneView() {
         sceneView.delegate = self
-        
-        // Load the SKScene from 'Scene.sks'
         if let scene = SKScene(fileNamed: "Scene") {
             sceneView.presentScene(scene)
             recorder = RecordAR(ARSpriteKit: sceneView)
             recorder?.inputViewOrientations = [.portrait, .landscapeLeft, .landscapeRight]
         }
-        
+    }
+    
+    private func addTapGestures() {
         recorderButton.addTarget(self, action: #selector(recorderAction(sender:)), for: .touchUpInside)
         pauseButton.addTarget(self, action: #selector(pauseAction(sender:)), for: .touchUpInside)
         gifButton.addTarget(self, action: #selector(gifAction(sender:)), for: .touchUpInside)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.environmentTexturing = .automatic
-        
-        // Run the view's session
-        sceneView.session.run(configuration)
-        recorder?.prepare(configuration)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // Pause the view's session
-        sceneView.session.pause()
-        recorder?.rest()
-    }
-    
+    // MARK: - Objc Functions
     @objc func recorderAction(sender:UIButton) {
-        
         if recorder?.status == .readyToRecord {
-            // Start recording
             recorder?.record()
-            
-            // Change button title
             sender.setTitle("Stop", for: .normal)
             sender.setTitleColor(.red, for: .normal)
-            
-            // Enable Pause button
             pauseButton.alpha = 1
             pauseButton.isEnabled = true
-            
-            // Disable GIF button
             gifButton.alpha = 0.3
             gifButton.isEnabled = false
         }else if recorder?.status == .recording || recorder?.status == .paused {
-            // Stop recording and export video to camera roll
             recorder?.stopAndExport()
-            
-            // Change button title
             sender.setTitle("Record", for: .normal)
             sender.setTitleColor(.black, for: .normal)
-            
-            // Enable GIF button
             gifButton.alpha = 1
             gifButton.isEnabled = true
-            
-            // Disable Pause button
             pauseButton.alpha = 0.3
             pauseButton.isEnabled = false
         }
         
     }
-    // Pause and resume method
+    
     @objc func pauseAction(sender:UIButton) {
         if recorder?.status == .recording {
-            // Pause recording
             recorder?.pause()
-            
-            // Change button title
             sender.setTitle("Resume", for: .normal)
             sender.setTitleColor(.blue, for: .normal)
         } else if recorder?.status == .paused {
-            // Resume recording
             recorder?.record()
-            
-            // Change button title
             sender.setTitle("Pause", for: .normal)
             sender.setTitleColor(.black, for: .normal)
         }
@@ -157,7 +143,6 @@ class ViewController: UIViewController, ARSKViewDelegate {
         self.gifButton.alpha = 0.3
         self.recorderButton.isEnabled = false
         self.recorderButton.alpha = 0.3
-        
         recorder?.gif(forDuration: 1.5, export: true) { _, _, _ , exported in
             if exported {
                 DispatchQueue.main.sync {
@@ -172,15 +157,9 @@ class ViewController: UIViewController, ARSKViewDelegate {
     
     // MARK: - ARSKViewDelegate
     func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
-        // Create and configure a node for the anchor added to the view's session.
         let labelNode = SKLabelNode(text: randoMoji)
         labelNode.horizontalAlignmentMode = .center
         labelNode.verticalAlignmentMode = .center
-        
-        
         return labelNode;
-    
-        
     }
-    
 }
