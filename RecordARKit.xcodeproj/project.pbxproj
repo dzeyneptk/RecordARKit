@@ -14,9 +14,11 @@
 		59BC8EFA24EC2AD000C3049F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59BC8EF824EC2AD000C3049F /* Main.storyboard */; };
 		59BC8EFC24EC2AD400C3049F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59BC8EFB24EC2AD400C3049F /* Assets.xcassets */; };
 		59BC8EFF24EC2AD400C3049F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59BC8EFD24EC2AD400C3049F /* LaunchScreen.storyboard */; };
+		81A78AE882CEF2BFF605084A /* Pods_RecordARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90BB8513DBFDF4512A790470 /* Pods_RecordARKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		140075547A4EA5F38203204D /* Pods-RecordARKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecordARKit.release.xcconfig"; path = "Target Support Files/Pods-RecordARKit/Pods-RecordARKit.release.xcconfig"; sourceTree = "<group>"; };
 		59BC8EED24EC2AD000C3049F /* RecordARKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecordARKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59BC8EF024EC2AD000C3049F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59BC8EF224EC2AD000C3049F /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
@@ -26,6 +28,8 @@
 		59BC8EFB24EC2AD400C3049F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59BC8EFE24EC2AD400C3049F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59BC8F0024EC2AD400C3049F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81F04F3BB22EDE13BA4CFF71 /* Pods-RecordARKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecordARKit.debug.xcconfig"; path = "Target Support Files/Pods-RecordARKit/Pods-RecordARKit.debug.xcconfig"; sourceTree = "<group>"; };
+		90BB8513DBFDF4512A790470 /* Pods_RecordARKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecordARKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81A78AE882CEF2BFF605084A /* Pods_RecordARKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +49,8 @@
 			children = (
 				59BC8EEF24EC2AD000C3049F /* RecordARKit */,
 				59BC8EEE24EC2AD000C3049F /* Products */,
+				A2B6CC3989EDC30166D918B1 /* Pods */,
+				627EF7B786A6D367C1CB9872 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +77,24 @@
 			path = RecordARKit;
 			sourceTree = "<group>";
 		};
+		627EF7B786A6D367C1CB9872 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				90BB8513DBFDF4512A790470 /* Pods_RecordARKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A2B6CC3989EDC30166D918B1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				81F04F3BB22EDE13BA4CFF71 /* Pods-RecordARKit.debug.xcconfig */,
+				140075547A4EA5F38203204D /* Pods-RecordARKit.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -77,9 +102,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 59BC8F0324EC2AD400C3049F /* Build configuration list for PBXNativeTarget "RecordARKit" */;
 			buildPhases = (
+				32E648560B127575553C0C18 /* [CP] Check Pods Manifest.lock */,
 				59BC8EE924EC2AD000C3049F /* Sources */,
 				59BC8EEA24EC2AD000C3049F /* Frameworks */,
 				59BC8EEB24EC2AD000C3049F /* Resources */,
+				4860F10133153F800EED093A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,6 +163,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		32E648560B127575553C0C18 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RecordARKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4860F10133153F800EED093A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RecordARKit/Pods-RecordARKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RecordARKit/Pods-RecordARKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RecordARKit/Pods-RecordARKit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		59BC8EE924EC2AD000C3049F /* Sources */ = {
@@ -286,6 +355,7 @@
 		};
 		59BC8F0424EC2AD400C3049F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81F04F3BB22EDE13BA4CFF71 /* Pods-RecordARKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -304,6 +374,7 @@
 		};
 		59BC8F0524EC2AD400C3049F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 140075547A4EA5F38203204D /* Pods-RecordARKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
